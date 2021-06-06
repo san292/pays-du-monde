@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Card from "./Card";
 const Countries = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -12,10 +13,10 @@ const Countries = () => {
   }, []);
 
   return (
-    <div className=".Countries">
-      <ul className=".Countries-list">
+    <div className="Countries">
+      <ul className="Countries-list">
         {data.map((country) => (
-          <li>{country.name}</li>
+          <Card country={country} key={country.name} />
         ))}
       </ul>
     </div>
