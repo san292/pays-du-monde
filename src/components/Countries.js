@@ -13,8 +13,8 @@ const Countries = () => {
   }, []);
 
   return (
-    <div className="Countries">
-      <ul className="Countries-list">
+    <div className="countries">
+      <ul className="countries-list">
         {data.map((country) => (
           <Card country={country} key={country.name} />
         ))}
