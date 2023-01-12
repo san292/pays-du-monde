@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Card from "./Card";
+import React, { useEffect, useState } from 'react';
+import Card from './Card';
+import { fetchData } from '../helpers/fetchApi';
+import { sortedCountry } from '../utils/sortCoountries';
+
 const Countries = () => {
   const [data, setData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
@@ -9,40 +11,41 @@ const Countries = () => {
 
   useEffect(() => {
     if (playOnce) {
-      axios
-        .get(
-          "https://restcountries.eu/rest/v2/all?fields=name;population;region;capital;flag"
-        )
-        .then((res) => {
-          setData(res.data);
-          setPlayOnce(false);
-        });
-    }
-    //console.log(data);
-    const sortedCountry = () => {
-      const countryObj = Object.keys(data).map((i) => data[i]);
-      const sortedArray = countryObj.sort((a, b) => {
-        return b.population - a.population;
+      fetchData().then((res) => {
+        setData(res);
+        setPlayOnce(false);
       });
-      sortedArray.length = rangeValue;
-      setSortedData(sortedArray);
-    };
-    sortedCountry();
+    }
+    const { sortedArrayData } = sortedCountry(data, rangeValue);
+    console.log(sortedArrayData);
+
+    setSortedData(sortedArrayData);
+    // const sortedCountry = () => {
+    //   const countryObj = Object.keys(data).map((i) => {
+    //     return data[i];
+    //   });
+
+    //   const sortedArray = countryObj.sort((a, b) => {
+    //     return b.population - a.population;
+    //   });
+    //   sortedArray.length = rangeValue;
+    // sortedCountry();
   }, [data, rangeValue, playOnce]);
 
   return (
     <div className="countries">
       <div className="sort-container">
-        <input type="range" min="1" max="250" value={rangeValue}
-        onChange={(e) => setRangeValue(e.target.value)} />
+        <input
+          type="range"
+          min="1"
+          max="100"
+          value={rangeValue}
+          onChange={(e) => setRangeValue(e.target.value)}
+        />
       </div>
       <ul className="countries-list">
         {sortedData.map((country) => (
-          <Card
-            country={country}
-            key={country.name}
-            
-          />
+          <Card country={country} key={country.name} />
         ))}
       </ul>
     </div>
@@ -50,16 +53,3 @@ const Countries = () => {
 };
 
 export default Countries;
-
-/*const sayGoodby = ()=>{
-    setData('GoodBye');
-}
-
-    return (
-        <div>
-        {data}
-        <button onClick= {sayGoodby}> dire au revoir</button>
-        
-        </div>
-    );
-};*/

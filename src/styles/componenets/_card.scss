@@ -1,7 +1,7 @@
 .card {
     height: 100px;
     position: relative;
-    margin: 1px;
+    margin: 5px;
     box-shadow: 0 0 2px rgba(51, 51, 51, 0.25);
     transition: 0.3s;
     overflow: hidden;
@@ -20,7 +20,7 @@
     .data-container {
       position: absolute;
       top: 0;
-      opacity: 0;
+      opacity:0;
       width: 100%;
       height: 100%;
       transition: 0.2s;

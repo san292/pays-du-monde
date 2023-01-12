@@ -1,20 +1,22 @@
-import React from "react";
+import React from 'react';
 
-const Card = (props) => {
-  const { country } = props;
-  //console.log(country);
-  const numberFormat = (x) =>{
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-  }
+const Card = ({ country }) => {
+  const { capital, flag, name, region } = country;
+
+  const numberFormat = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  };
 
   return (
     <li className="card">
-      <img src={country.flag} alt="flag" />
+      <img src={flag} alt="flag" />
       <div className="data-container">
         <ul>
-          <li>{country.name}</li>
-          <li>{country.capital}</li>
-          <li>pop. {numberFormat(country.population)}</li>
+          <li>{name}</li>
+          <li>Capital : {capital}</li>
+          <li>population : {numberFormat(country.population)}</li>
+
+          <li>Region: {region}</li>
         </ul>
       </div>
     </li>
