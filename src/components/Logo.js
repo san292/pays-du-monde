@@ -7,7 +7,7 @@ const Logo = () => {
       <Link to="/">
         <img src="./img/logo192.png" alt="logo" />
       </Link>
-      <h3> React World</h3>
+      <h3>REST Countries</h3>
     </div>
   );
 };

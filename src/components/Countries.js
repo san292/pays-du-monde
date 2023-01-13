@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
-import { fetchData } from '../helpers/fetchApi';
+import { fetchData } from '../api/fetchApi';
 import { sortedCountry } from '../utils/sortCoountries';
 
 const Countries = () => {

@@ -8,7 +8,7 @@ const Card = ({ country }) => {
   };
 
   return (
-    <li className="card">
+    <div className="card">
       <img src={flag} alt="flag" />
       <div className="data-container">
         <ul>
@@ -19,7 +19,7 @@ const Card = ({ country }) => {
           <li>Region: {region}</li>
         </ul>
       </div>
-    </li>
+    </div>
   );
 };
 
