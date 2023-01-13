@@ -4,33 +4,27 @@ import { fetchData } from '../helpers/fetchApi';
 import { sortedCountry } from '../utils/sortCoountries';
 
 const Countries = () => {
-  const [data, setData] = useState([]);
-  const [sortedData, setSortedData] = useState([]);
-  const [playOnce, setPlayOnce] = useState(true);
-  const [rangeValue, setRangeValue] = useState(40);
+  const [state, setState] = useState({
+    data: [],
+    playOnce: true,
+    rangeValue: 40
+  });
+
+  const { data, playOnce, rangeValue } = state;
+
+  const sortedArrayData = sortedCountry(data, rangeValue);
 
   useEffect(() => {
     if (playOnce) {
-      fetchData().then((res) => {
-        setData(res);
-        setPlayOnce(false);
-      });
+      fetchData().then((res) =>
+        setState({
+          ...state,
+          data: res,
+          playOnce: false
+        })
+      );
     }
-    const { sortedArrayData } = sortedCountry(data, rangeValue);
-    console.log(sortedArrayData);
-
-    setSortedData(sortedArrayData);
-    // const sortedCountry = () => {
-    //   const countryObj = Object.keys(data).map((i) => {
-    //     return data[i];
-    //   });
-
-    //   const sortedArray = countryObj.sort((a, b) => {
-    //     return b.population - a.population;
-    //   });
-    //   sortedArray.length = rangeValue;
-    // sortedCountry();
-  }, [data, rangeValue, playOnce]);
+  }, [data, playOnce, rangeValue, sortedArrayData, state]);
 
   return (
     <div className="countries">
@@ -39,12 +33,12 @@ const Countries = () => {
           type="range"
           min="1"
           max="100"
-          value={rangeValue}
-          onChange={(e) => setRangeValue(e.target.value)}
+          value={state.rangeValue}
+          onChange={(e) => setState({ ...state, rangeValue: e.target.value })}
         />
       </div>
       <ul className="countries-list">
-        {sortedData.map((country) => (
+        {sortedArrayData.map((country) => (
           <Card country={country} key={country.name} />
         ))}
       </ul>
